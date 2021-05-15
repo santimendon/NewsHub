@@ -1,0 +1,94 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+}
+
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion "30.0.0"
+
+    defaultConfig {
+        applicationId "com.smendon.android.newshub"
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        dataBinding true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    //AndroidX Core & Kotlin & Support Libraries
+    implementation(pluginDependencies.kotlinStdlib)
+    implementation(coreDependencies.androidXCore)
+    implementation(supportDependencies.appCompat)
+
+    //UI
+    implementation(uiDesignDependencies.materialDesign)
+    implementation(uiDesignDependencies.constraintlayout)
+    implementation(uiDesignDependencies.cardView)
+    implementation(uiDesignDependencies.recyclerView)
+
+    //Viewmodel and Lifecycle
+    implementation(lifecycleDependencies.viewmodel)
+    implementation(lifecycleDependencies.lifecycleExt)
+
+    //Coroutines
+    implementation(coroutineDependencies.coroutines)
+    implementation(coroutineDependencies.coroutinesCore)
+
+    //Network
+    implementation(networkDependencies.retrofit2)
+    implementation(networkDependencies.retrofit2Converter)
+    implementation(networkDependencies.okhttp3)
+    implementation(networkDependencies.okhttp3Logging)
+
+    //Room Database
+    implementation(roomDependencies.room)
+    kapt(roomDependencies.roomKapt)
+    implementation(roomDependencies.roomCoroutineSupport)
+    testImplementation(roomDependencies.roomTest)
+
+    //Kodein Dependency Injection
+    implementation(kodeinDependencies.kodeinGeneric)
+    implementation(kodeinDependencies.kodeinFramework)
+
+    //Glide
+    implementation(glideDependencies.glideLib)
+    annotationProcessor(glideDependencies.glideCompiler)
+
+    //Tests
+    testImplementation(testingDependencies.junit)
+    androidTestImplementation(testingDependencies.androidxJunit)
+    androidTestImplementation(testingDependencies.androidxEspresso)
+    testImplementation(testingDependencies.mockitoCore)
+    testImplementation(testingDependencies.mockitoInline)
+    testImplementation(testingDependencies.androidArchCore)
+    testImplementation(coroutineDependencies.coroutinesTest)
+}
