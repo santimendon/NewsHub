@@ -20,6 +20,7 @@ android {
         versionCode 1
         versionName "1.0"
 
+        buildConfigField("String", "NEWSORG_API_KEY", apikeyProperties['NEWSORG_API_KEY'])
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -75,9 +76,10 @@ dependencies {
     implementation(roomDependencies.roomCoroutineSupport)
     testImplementation(roomDependencies.roomTest)
 
-    //Kodein Dependency Injection
-    implementation(kodeinDependencies.kodeinGeneric)
-    implementation(kodeinDependencies.kodeinFramework)
+    //Dagger Hilt
+    implementation(daggerHiltDependencies.daggerHiltAndroid)
+    kapt(daggerHiltDependencies.daggerCompiler)
+    implementation(daggerHiltDependencies.hiltLifecycle)
 
     //Glide
     implementation(glideDependencies.glideLib)
