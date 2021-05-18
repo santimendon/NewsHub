@@ -74,9 +74,11 @@ ext {
     daggerVer = '2.35.1'
     hiltLifecycleVer = '1.0.0-alpha03'
     daggerHiltDependencies = [
-            daggerHiltAndroid: "com.google.dagger:hilt-android:${daggerVer}",
-            daggerCompiler   : "com.google.dagger:hilt-compiler:${daggerVer}",
-            hiltLifecycle    : "androidx.hilt:hilt-lifecycle-viewmodel:${hiltLifecycleVer}"
+            daggerGradlePlugin  : "com.google.dagger:hilt-android-gradle-plugin:${daggerVer}",
+            daggerHiltAndroid   : "com.google.dagger:hilt-android:${daggerVer}",
+            daggerCompiler      : "com.google.dagger:hilt-compiler:${daggerVer}",
+            //hiltLifecycle       : "androidx.hilt:hilt-lifecycle-viewmodel:${hiltLifecycleVer}",
+            hiltAndroidXCompiler: "androidx.hilt:hilt-compiler:${hiltLifecycleVer}"
     ]
 
     //Glide

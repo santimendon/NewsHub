@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 def apikeyPropertiesFile = rootProject.file("apikey.properties")
@@ -79,7 +80,8 @@ dependencies {
     //Dagger Hilt
     implementation(daggerHiltDependencies.daggerHiltAndroid)
     kapt(daggerHiltDependencies.daggerCompiler)
-    implementation(daggerHiltDependencies.hiltLifecycle)
+    //implementation(daggerHiltDependencies.hiltLifecycle)
+    kapt(daggerHiltDependencies.hiltAndroidXCompiler)
 
     //Glide
     implementation(glideDependencies.glideLib)

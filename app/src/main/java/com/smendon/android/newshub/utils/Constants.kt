@@ -8,7 +8,7 @@ import com.smendon.android.newshub.BuildConfig
  * Base URL for Retrofit object
  */
 const val HOST = "https://newsapi.org"
-const val API_VERSION = "v2"
+const val API_VERSION = "v2" //To be migrated to Firebase
 
 const val BASE_URL = HOST
 
