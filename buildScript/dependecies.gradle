@@ -34,12 +34,13 @@ ext {
     ]
 
 
-    //Viewmodel and Lifecycle
+    //Lifecycle
     lifecycleViewModelVer = '2.3.1'
     lifecycleExtensionsVer = '2.2.0'
     lifecycleDependencies = [
             viewmodel   : "androidx.lifecycle:lifecycle-viewmodel-ktx:${lifecycleViewModelVer}",
-            lifecycleExt: "androidx.lifecycle:lifecycle-extensions:${lifecycleExtensionsVer}"
+            lifecycleExt: "androidx.lifecycle:lifecycle-extensions:${lifecycleExtensionsVer}",
+            livedata    : "androidx.lifecycle:lifecycle-livedata-ktx:${lifecycleExtensionsVer}"
     ]
 
     //Coroutines
@@ -70,15 +71,21 @@ ext {
             roomTest            : "androidx.room:room-testing:${roomVer}"
     ]
 
+    //AndroidX Activity & Fragment
+    activityVer = '1.2.3'
+    androidXDependencies = [
+            activity: "androidx.activity:activity-ktx:${activityVer}"
+    ]
+
     //Dagger Hilt
     daggerVer = '2.35.1'
     hiltLifecycleVer = '1.0.0-alpha03'
     daggerHiltDependencies = [
-            daggerGradlePlugin  : "com.google.dagger:hilt-android-gradle-plugin:${daggerVer}",
-            daggerHiltAndroid   : "com.google.dagger:hilt-android:${daggerVer}",
-            daggerCompiler      : "com.google.dagger:hilt-compiler:${daggerVer}",
+            daggerGradlePlugin: "com.google.dagger:hilt-android-gradle-plugin:${daggerVer}",
+            daggerHiltAndroid : "com.google.dagger:hilt-android:${daggerVer}",
+            daggerCompiler    : "com.google.dagger:hilt-compiler:${daggerVer}",
             //hiltLifecycle       : "androidx.hilt:hilt-lifecycle-viewmodel:${hiltLifecycleVer}",
-            hiltAndroidXCompiler: "androidx.hilt:hilt-compiler:${hiltLifecycleVer}"
+            //hiltAndroidXCompiler: "androidx.hilt:hilt-compiler:${hiltLifecycleVer}"
     ]
 
     //Glide

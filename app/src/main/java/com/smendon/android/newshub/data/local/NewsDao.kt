@@ -13,5 +13,8 @@ interface NewsDao {
     suspend fun insertLatestNews(latestNews: List<NewsArticle>)
 
     @Query("SELECT * FROM table_latest_news")
-    fun getAllLatestNews(): Flow<List<NewsArticle>>
+    fun getLatestNews(): Flow<List<NewsArticle>>
+
+    @Query("DELETE FROM table_latest_news")
+    suspend fun deleteAllNews()
 }

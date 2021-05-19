@@ -57,9 +57,10 @@ dependencies {
     implementation(uiDesignDependencies.cardView)
     implementation(uiDesignDependencies.recyclerView)
 
-    //Viewmodel and Lifecycle
+    //Lifecycle
     implementation(lifecycleDependencies.viewmodel)
     implementation(lifecycleDependencies.lifecycleExt)
+    implementation(lifecycleDependencies.livedata)
 
     //Coroutines
     implementation(coroutineDependencies.coroutines)
@@ -77,11 +78,14 @@ dependencies {
     implementation(roomDependencies.roomCoroutineSupport)
     testImplementation(roomDependencies.roomTest)
 
+    //AndroidX Activity
+    implementation(androidXDependencies.activity)
+
     //Dagger Hilt
     implementation(daggerHiltDependencies.daggerHiltAndroid)
     kapt(daggerHiltDependencies.daggerCompiler)
     //implementation(daggerHiltDependencies.hiltLifecycle)
-    kapt(daggerHiltDependencies.hiltAndroidXCompiler)
+    //kapt(daggerHiltDependencies.hiltAndroidXCompiler)
 
     //Glide
     implementation(glideDependencies.glideLib)

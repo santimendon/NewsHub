@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.smendon.android.newshub">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".NewsHubApplication"
         android:allowBackup="true"

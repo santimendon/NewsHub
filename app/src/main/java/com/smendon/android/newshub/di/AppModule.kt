@@ -11,6 +11,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -18,6 +19,26 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Provides
+    @Singleton
+    fun provideCoroutineDispatchers() = AppCoroutineDispatcher(
+        main = Dispatchers.Main,
+        io = Dispatchers.IO,
+        computation = Dispatchers.Default
+    )
+
+    @Provides
+    @Main
+    fun provideMainDispatcher(dispatcher: AppCoroutineDispatcher) = dispatcher.main
+
+    @Provides
+    @Io
+    fun provideIoDispatcher(dispatcher: AppCoroutineDispatcher) = dispatcher.io
+
+    @Provides
+    @Common
+    fun provideComputationDispatcher(dispatcher: AppCoroutineDispatcher) = dispatcher.computation
 
     @Provides
     @Singleton

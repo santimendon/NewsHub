@@ -1,12 +1,26 @@
 package com.smendon.android.newshub.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.smendon.android.newshub.R
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import com.smendon.android.newshub.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    private val viewmodel: MainViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.apply {
+            viewmodel.latestNews.observe(this@MainActivity, Observer { result ->
+                binding.txtResponse.text = result.data.toString()
+            })
+        }
     }
 }
