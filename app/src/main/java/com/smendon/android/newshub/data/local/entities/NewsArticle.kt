@@ -1,6 +1,5 @@
 package com.smendon.android.newshub.data.local.entities
 
-import androidx.annotation.NonNull
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

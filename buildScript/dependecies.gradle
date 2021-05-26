@@ -77,6 +77,12 @@ ext {
             activity: "androidx.activity:activity-ktx:${activityVer}"
     ]
 
+    //Paging
+    pagingVersion = '3.0.0'
+    pagingDependencies = [
+            paging: "androidx.paging:paging-runtime:${pagingVersion}"
+    ]
+
     //Dagger Hilt
     daggerVer = '2.35.1'
     hiltLifecycleVer = '1.0.0-alpha03'

@@ -18,6 +18,7 @@ const val ENDPOINT_HEADLINES = "top-headlines"
  * API Query's
  */
 const val KEY_COUNTRY = "country"
+const val KEY_PAGE = "page"
 const val KEY_PAGE_SIZE = "pageSize"
 
 /*
@@ -30,9 +31,10 @@ const val NEWSORG_API_KEY = BuildConfig.NEWSORG_API_KEY
 * Defaukt API Query values
 */
 const val COUNTRY = "in" //Primary country for headlines
-const val PAGE_SIZE = 5 //Headlines count per hit
+const val DEFAULT_PAGE = 1 //Default page
+const val PAGE_SIZE = 1 //Headlines count per hit
 
 /**
  * Database name
  */
-const val DATABASE_NAME = "newshubdb.db"
+const val DATABASE_NAME = "Newshub.db"

@@ -1,30 +1,34 @@
 package com.smendon.android.newshub.data
 
-import androidx.room.withTransaction
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.smendon.android.newshub.data.local.NewsDatabase
+import com.smendon.android.newshub.data.local.entities.NewsArticle
 import com.smendon.android.newshub.data.remote.NewsApiService
+import com.smendon.android.newshub.utils.PAGE_SIZE
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(
     private val apiService: NewsApiService,
     private val database: NewsDatabase
 ) {
-    private val newsDao = database.newsDao()
+    @ExperimentalPagingApi
+    fun getNewsStream(): Flow<PagingData<NewsArticle>> {
+        val pagingSourceFactory = { database.newsDao().getAllNews() }
 
-    fun getLatestNews() = networkBoundResource(
-        queryDb = {
-            newsDao.getLatestNews()
-        },
-        fetchFromRemote = {
-            apiService.getHeadlines().articles
-        },
-        cacheRemoteResult = { newslist ->
-            database.withTransaction {
-                newsDao.deleteAllNews()
-                newsDao.insertLatestNews(newslist)
-
-            }
-        },
-        shouldFetch = { true }
-    )
+        return Pager(
+            config = PagingConfig(
+                pageSize = PAGE_SIZE,
+                enablePlaceholders = false,
+            ),
+            remoteMediator = NewsRemoteMediator(
+                apiService,
+                database
+            ),
+            pagingSourceFactory = pagingSourceFactory
+        ).flow
+    }
 }
