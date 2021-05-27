@@ -28,13 +28,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initAdapter(true)
-
-        /*binding.apply {
-            viewmodel.latestNews.observe(this@MainActivity, Observer { result ->
-                binding.txtResponse.text = result.data.toString()
-            })
-        }*/
+        initAdapter()
 
         lifecycleScope.launch {
             viewmodel.newsStream.collectLatest {
@@ -43,18 +37,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun initAdapter(isMediator: Boolean = false) {
+    fun initAdapter() {
         binding.recyclerviewArticles.adapter = adapter.withLoadStateHeaderAndFooter(
             header = NewsLoadStateAdapter { adapter.retry() },
             footer = NewsLoadStateAdapter { adapter.retry() }
         )
         adapter.addLoadStateListener { loadState ->
-            val refreshState =
-                if (isMediator) {
-                    loadState.mediator?.refresh
-                } else {
-                    loadState.source.refresh
-                }
+            val refreshState = loadState.mediator?.refresh
             binding.recyclerviewArticles.isVisible = refreshState is LoadState.NotLoading
             binding.progressBar.isVisible = refreshState is LoadState.Loading
             binding.buttonRetry.isVisible = refreshState is LoadState.Error

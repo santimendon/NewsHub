@@ -10,7 +10,7 @@ import com.smendon.android.newshub.data.local.entities.NewsArticle
 @Dao
 interface NewsDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNews(list: List<NewsArticle>)
+    suspend fun insertAllNews(news: List<NewsArticle>)
 
     @Query("SELECT * FROM table_latest_news")
     fun getAllNews(): PagingSource<Int, NewsArticle>

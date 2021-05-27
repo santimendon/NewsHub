@@ -16,12 +16,13 @@ class NewsRepository @Inject constructor(
     private val database: NewsDatabase
 ) {
     @ExperimentalPagingApi
-    fun getNewsStream(): Flow<PagingData<NewsArticle>> {
+    fun getNewsFromMediator(): Flow<PagingData<NewsArticle>> {
         val pagingSourceFactory = { database.newsDao().getAllNews() }
 
         return Pager(
             config = PagingConfig(
                 pageSize = PAGE_SIZE,
+                maxSize = PAGE_SIZE + (PAGE_SIZE * 2),
                 enablePlaceholders = false,
             ),
             remoteMediator = NewsRemoteMediator(

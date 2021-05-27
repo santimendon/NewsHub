@@ -16,7 +16,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     private val repository: NewsRepository
 ) : ViewModel() {
-    val newsStream: Flow<PagingData<NewsListItem>> = repository.getNewsStream()
+    val newsStream: Flow<PagingData<NewsListItem>> = repository.getNewsFromMediator()
         .map { pagingData -> pagingData.map { NewsListItem.NewsItem(it) } }
         .map {
             it.insertSeparators<NewsListItem.NewsItem, NewsListItem> { before, after ->

@@ -32,7 +32,7 @@ const val NEWSORG_API_KEY = BuildConfig.NEWSORG_API_KEY
 */
 const val COUNTRY = "in" //Primary country for headlines
 const val DEFAULT_PAGE = 1 //Default page
-const val PAGE_SIZE = 1 //Headlines count per hit
+const val PAGE_SIZE = 10 //Headlines count per hit
 
 /**
  * Database name

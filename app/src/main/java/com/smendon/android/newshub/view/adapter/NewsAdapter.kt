@@ -40,7 +40,7 @@ class NewsAdapter : PagingDataAdapter<NewsListItem, RecyclerView.ViewHolder>(COM
 
         private val COMPARATOR = object : DiffUtil.ItemCallback<NewsListItem>() {
             override fun areItemsTheSame(oldItem: NewsListItem, newItem: NewsListItem): Boolean {
-                return compareNews(oldItem, newItem) ||
+                return compareCat(oldItem, newItem) ||
                         compareSeparator(oldItem, newItem)
             }
 
@@ -54,10 +54,10 @@ class NewsAdapter : PagingDataAdapter<NewsListItem, RecyclerView.ViewHolder>(COM
         ) = (oldItem is NewsListItem.SeparatorItem && newItem is NewsListItem.SeparatorItem &&
                 oldItem.letter == newItem.letter)
 
-        private fun compareNews(
+        private fun compareCat(
             oldItem: NewsListItem,
             newItem: NewsListItem
         ) = (oldItem is NewsListItem.NewsItem && newItem is NewsListItem.NewsItem &&
-                oldItem.newsItem.url == newItem.newsItem.url)
+                oldItem.newsItem.title == newItem.newsItem.title)
     }
 }

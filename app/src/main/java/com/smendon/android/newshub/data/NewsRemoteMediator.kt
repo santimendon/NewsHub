@@ -17,7 +17,7 @@ const val STARTING_PAGE_INDEX = 1
 @ExperimentalPagingApi
 class NewsRemoteMediator(
     private val api: NewsApiService,
-    private val database: NewsDatabase
+    private val db: NewsDatabase
 ) : RemoteMediator<Int, NewsArticle>() {
 
     override suspend fun initialize(): InitializeAction {
@@ -25,8 +25,7 @@ class NewsRemoteMediator(
     }
 
     override suspend fun load(
-        loadType: LoadType,
-        state: PagingState<Int, NewsArticle>
+        loadType: LoadType, state: PagingState<Int, NewsArticle>
     ): MediatorResult {
         val pageKeyData = getKeyPageData(loadType, state)
         val page = when (pageKeyData) {
@@ -40,22 +39,19 @@ class NewsRemoteMediator(
 
         try {
             val response = api.getHeadlines(page = page, pageSize = state.config.pageSize).articles
-
             val isEndOfList = response.isEmpty()
-            database.withTransaction {
+            db.withTransaction {
                 if (loadType == LoadType.REFRESH) {
-                    database.newsDao().deleteAllNews()
-                    database.remoteKeysDao().deleteAllKeys()
+                    db.newsDao().deleteAllNews()
+                    db.remoteKeysDao().deleteAll()
                 }
-
                 val prevKey = if (page == STARTING_PAGE_INDEX) null else page - 1
                 val nextKey = if (isEndOfList) null else page + 1
                 val keys = response.map {
                     RemoteKey(it.url, prevKey = prevKey, nextKey = nextKey)
                 }
-
-                database.remoteKeysDao().insertAllKeys(keys)
-                database.newsDao().insertNews(response)
+                db.remoteKeysDao().insertAll(keys)
+                db.newsDao().insertAllNews(response)
             }
             return MediatorResult.Success(endOfPaginationReached = isEndOfList)
         } catch (exception: IOException) {
@@ -92,7 +88,7 @@ class NewsRemoteMediator(
     private suspend fun getRemoteKeyClosestToCurrentPosition(state: PagingState<Int, NewsArticle>): RemoteKey? {
         return state.anchorPosition?.let { position ->
             state.closestItemToPosition(position)?.url?.let { url ->
-                database.remoteKeysDao().remoteKeysNewsId(url)
+                db.remoteKeysDao().remoteKeysNewsId(url)
             }
         }
     }
@@ -101,13 +97,13 @@ class NewsRemoteMediator(
         return state.pages
             .lastOrNull { it.data.isNotEmpty() }
             ?.data?.lastOrNull()
-            ?.let { article -> database.remoteKeysDao().remoteKeysNewsId(article.url) }
+            ?.let { newsItem -> db.remoteKeysDao().remoteKeysNewsId(newsItem.url) }
     }
 
     private suspend fun getFirstRemoteKey(state: PagingState<Int, NewsArticle>): RemoteKey? {
         return state.pages
             .firstOrNull { it.data.isNotEmpty() }
             ?.data?.firstOrNull()
-            ?.let { article -> database.remoteKeysDao().remoteKeysNewsId(article.url) }
+            ?.let { newsItem -> db.remoteKeysDao().remoteKeysNewsId(newsItem.url) }
     }
 }
