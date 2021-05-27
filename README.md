@@ -6,6 +6,8 @@ Currently there are 2 implementations for offline data caching:
 - Offline caching using NetworkBoundResource (master branch)
 - Pagination with network and database (feature/pagination)
 
+<img src="images/1.png" width="200">
+
 ### Libraries:
 
 - [Kotlin flows on Android](https://developer.android.com/kotlin/flow)
