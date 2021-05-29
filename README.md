@@ -3,7 +3,7 @@ NewsHub is made for you to check realtime news updates from around the world. Th
 [News Org](https://newsapi.org/)
 
 Currently there are 2 implementations for offline data caching:
-- Offline caching using NetworkBoundResource (master branch)
+- Offline caching using NetworkBoundResource (feature/networkboundresource)
 - Pagination with network and database (feature/pagination)
 
 <img src="images/1.png" width="200">
