@@ -1,6 +1,5 @@
 package com.smendon.android.newshub.view
 
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import com.smendon.android.newshub.data.NewsRepository

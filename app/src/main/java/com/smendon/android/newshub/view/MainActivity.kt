@@ -11,6 +11,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val viewmodel: MainViewModel by viewModels()
     private lateinit var binding: ActivityMainBinding
+    private val newsAdapter = NewsArticleAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,8 +19,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.apply {
+            binding.recyclerView.adapter = newsAdapter
             viewmodel.latestNews.observe(this@MainActivity, Observer { result ->
-                binding.txtResponse.text = result.data.toString()
+                newsAdapter?.submitList(result.data)
             })
         }
     }

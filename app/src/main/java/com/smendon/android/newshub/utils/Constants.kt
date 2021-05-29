@@ -30,7 +30,7 @@ const val NEWSORG_API_KEY = BuildConfig.NEWSORG_API_KEY
 * Defaukt API Query values
 */
 const val COUNTRY = "in" //Primary country for headlines
-const val PAGE_SIZE = 5 //Headlines count per hit
+const val PAGE_SIZE = 10 //Headlines count per hit
 
 /**
  * Database name
